@@ -1,62 +1,48 @@
 const gameOptions = ["Rock", "Paper", "Scissors"];
-let playerSelection = getPlayerChoice();
-const computerSelection = getComputerChoice();
+let playerScore = 0;
+let computerScore = 0;
 
-// function that prompts user to make selection and saves it as PlayerSelection
-function getPlayerChoice(Choice) {
-    let playerChoice = prompt("Rock, Paper, or Scissors?");
-    return playerChoice
-}
-
-
-// create function that selects computer selection from array and prompts user to type selection
-function getComputerChoice(Choice) {
-    const random = gameOptions[Math.floor(Math.random() * (gameOptions.length))];
-    return random;
-}
-
-// code for round
-function playRound(computerSelection, playerSelection) {
+function playRound() {
+    let playerSelection = prompt("Rock, Paper, or Scissors?");
+    let computerSelection = gameOptions[Math.floor(Math.random() * (gameOptions.length))];
+    let userRoundDefeat = `You picked ${playerSelection} and the computer picked ${computerSelection}. You lose the round!`;
+    let userRoundVictory = `You picked ${playerSelection} and the computer picked ${computerSelection}. You win the round!`;
+    let errorMessage = "User input is invalid. Please enter Rock, Paper or Scissors.";
+    let tieMessage = `You picked ${playerSelection} and the computer picked ${computerSelection}. The round is a tie!`;
     if (playerSelection == "Rock" && computerSelection == "Scissors") {
+        let playerScore = ++playerScore;
         return userRoundVictory;
     } else if (playerSelection == "Paper" && computerSelection == "Rock") {
+        playerScore += 1;
         return userRoundVictory;
     } else if (playerSelection == "Scissors" && computerSelection == "Paper") {
+        playerScore += 1;
         return userRoundVictory;
     } else if (playerSelection == "Rock" && computerSelection == "Paper") {
+        computerScore += 1;
         return userRoundDefeat;
     } else if (playerSelection == "Paper" && computerSelection == "Scissors") {
+        computerScore += 1;
         return userRoundDefeat;
     } else if (playerSelection == "Scissors" && computerSelection == "Rock") {
+        computerScore += 1;
         return userRoundDefeat;
     } else if (playerSelection === computerSelection) {
         return tieMessage;
+    } else {
+        return errorMessage;
     }
 }
 
-// code for game of five rounds
 function game() {
-
+    let userGameVictory = `You won ${playerScore} rounds and the computer won ${computerScore} rounds. You win!`;
+    let userGameDefeat = `You won ${playerScore} rounds and the computer won ${computerScore} rounds. You lose!`;
+    for (let i = 0; i < 5; i++) {
+        console.log(playRound())
+        if (playerScore > computerScore) {
+            return userGameVictory;
+        } else {
+            return userGameDefeat; 
+        }
+    }
 }
-
-// create for loop that tracks rounds and ends game at five rounds
-
-for (let i = 0; i < 5; i++) {
-    // your code here!
-}
-
-// print game victory messages for computer and user
-let userGameVictory = 'You won more rounds than the computer. You win!';
-let userGameDefeat = 'You lost more rounds than the computer. You lose!';
-
-// create round victory message for computer that prints user selection and computer selection
-let userRoundDefeat = `You picked ${playerSelection} and the computer picked ${computerSelection}. You lose the round!`;
-
-// create round victory message for user that prints user selection and computer selection
-let userRoundVictory = `You picked ${playerSelection} and the computer picked ${computerSelection}. You win the round!`;
-
-// create tie message
-let tieMessage = `You picked ${playerSelection} and the computer picked ${computerSelection}. The round is a tie!`;
-
-// create message if player input is invalid
-let errorMessage = "User input is invalid. Please enter Rock, Paper or Scissors.";
