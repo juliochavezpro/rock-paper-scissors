@@ -10,7 +10,7 @@ function playRound() {
     let errorMessage = "User input is invalid. Please enter Rock, Paper or Scissors.";
     let tieMessage = `You picked ${playerSelection} and the computer picked ${computerSelection}. The round is a tie!`;
     if (playerSelection == "Rock" && computerSelection == "Scissors") {
-        let playerScore = ++playerScore;
+        playerScore += 1;
         return userRoundVictory;
     } else if (playerSelection == "Paper" && computerSelection == "Rock") {
         playerScore += 1;
@@ -35,14 +35,13 @@ function playRound() {
 }
 
 function game() {
-    let userGameVictory = `You won ${playerScore} rounds and the computer won ${computerScore} rounds. You win!`;
-    let userGameDefeat = `You won ${playerScore} rounds and the computer won ${computerScore} rounds. You lose!`;
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound())
-        if (playerScore > computerScore) {
-            return userGameVictory;
-        } else {
-            return userGameDefeat; 
-        }
+    for (let i = 0; i <= 5; i++) {
+        playRound();
+        console.log(playRound());
+    }
+    if (playerScore > computerScore) {
+        console.log(`You won ${playerScore} games and the computer won ${computerScore} games. You win!`);
+    } else {
+        console.log(`You won ${playerScore} games and the computer won ${computerScore} games. You lose!`); 
     }
 }
