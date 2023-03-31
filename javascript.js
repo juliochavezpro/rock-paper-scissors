@@ -1,47 +1,52 @@
-const gameOptions = ["Rock", "Paper", "Scissors"];
-let playerScore = 0;
-let computerScore = 0;
+const gameOptions = ["rock", "paper", "scissors"];
+let playerScore = '';
+let computerScore = '';
 
-function playRound() {
-    let playerSelection = prompt("Rock, Paper, or Scissors?");
+let playerSelection;
+let computerSelection;
+
+const userGameWin = `You won ${playerScore} games and the computer won ${computerScore} games. You win!`;
+const compGameWin = `You won ${playerScore} games and the computer won ${computerScore} games. You lose!`;
+
+function playRound(e) {
+    let playerSelection = e.srcElement.id;
     let computerSelection = gameOptions[Math.floor(Math.random() * (gameOptions.length))];
     let userRoundDefeat = `You picked ${playerSelection} and the computer picked ${computerSelection}. You lose the round!`;
     let userRoundVictory = `You picked ${playerSelection} and the computer picked ${computerSelection}. You win the round!`;
-    let errorMessage = "User input is invalid. Please enter Rock, Paper or Scissors.";
+    let errorMessage = "User input is invalid. Please select Rock, Paper or Scissors.";
     let tieMessage = `You picked ${playerSelection} and the computer picked ${computerSelection}. The round is a tie!`;
-    if (playerSelection == "Rock" && computerSelection == "Scissors") {
+    updateScore();
+    if (playerSelection == "rock" && computerSelection == "scissors") {
         playerScore += 1;
-        return userRoundVictory;
-    } else if (playerSelection == "Paper" && computerSelection == "Rock") {
+        document.getElementById("results").innerHTML = `${userRoundVictory}`
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
         playerScore += 1;
-        return userRoundVictory;
-    } else if (playerSelection == "Scissors" && computerSelection == "Paper") {
+        document.getElementById("results").innerHTML = `${userRoundVictory}`
+    } else if (playerSelection == "scissors" && computerSelection == "paper") {
         playerScore += 1;
-        return userRoundVictory;
-    } else if (playerSelection == "Rock" && computerSelection == "Paper") {
+        document.getElementById("results").innerHTML = `${userRoundVictory}`
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
         computerScore += 1;
-        return userRoundDefeat;
-    } else if (playerSelection == "Paper" && computerSelection == "Scissors") {
+        document.getElementById("results").innerHTML = `${userRoundDefeat}`
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
         computerScore += 1;
-        return userRoundDefeat;
-    } else if (playerSelection == "Scissors" && computerSelection == "Rock") {
+        document.getElementById("results").innerHTML = `${userRoundDefeat}`
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
         computerScore += 1;
-        return userRoundDefeat;
+        document.getElementById("results").innerHTML = `${userRoundDefeat}`
     } else if (playerSelection === computerSelection) {
-        return tieMessage;
+        document.getElementById("results").innerHTML = `${tieMessage}`
     } else {
-        return errorMessage;
+        document.getElementById("results").innerHTML = `${errorMessage}`
     }
-}
+};
 
-function game() {
-    for (let i = 0; i <= 5; i++) {
-        playRound();
-        console.log(playRound());
-    }
-    if (playerScore > computerScore) {
-        console.log(`You won ${playerScore} games and the computer won ${computerScore} games. You win!`);
-    } else {
-        console.log(`You won ${playerScore} games and the computer won ${computerScore} games. You lose!`); 
-    }
-}
+const buttons = document.querySelectorAll('.choices');
+buttons.forEach((btn) => {
+    btn.addEventListener("click", playRound)
+});
+
+
+function updateScore () {
+    document.getElementById("score").innerText = `Player: ${playerScore} Computer: ${computerScore}`
+};
